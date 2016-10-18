@@ -39,7 +39,8 @@ public class GeographicPoint extends Double {
     	double d = R * c;
     	return d;
     }
-    
+
+    @Override
     public String toString()
     {
     	return "Lat: " + getX() + ", Lon: " + getY();

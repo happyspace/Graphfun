@@ -1,12 +1,6 @@
 package basicgraph;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import util.GraphLoader;
 
@@ -121,8 +115,14 @@ public abstract class Graph {
 	 * @return The degree sequence of this graph.
 	 */
 	public List<Integer> degreeSequence() {
-		// XXX: Implement in part 1 of week 2
-		return null;
+		List<Integer> degree = new ArrayList<>();
+		for (int i = 0; i < numVertices; i++) {
+			List<Integer> on = getNeighbors(i);
+            List<Integer> in = getInNeighbors(i);
+			degree.add(on.size() + in.size());
+		}
+		Collections.sort(degree, Collections.reverseOrder());
+		return degree;
 	}
 	
 	/**
@@ -229,7 +229,7 @@ public abstract class Graph {
 	
 	/** Main method provided with some basic tests.  */
 	public static void main (String[] args) {
-		GraphLoader.createIntersectionsFile("data/maps/ucsd.map", "data/intersections/ucsd.intersections");
+		GraphLoader.createIntersectionsFile("data/maps/myucsd.map", "data/intersections/myucsd.intersections");
 		
 
 		// For testing of Part 1 functionality
@@ -241,7 +241,7 @@ public abstract class Graph {
 		System.out.println("****");
 		System.out.println("Roads / intersections:");
 		GraphAdjList graphFromFile = new GraphAdjList();
-		GraphLoader.loadRoadMap("data/testdata/simpletest.map", graphFromFile);
+		GraphLoader.loadRoadMap("data/maps/ucsd.map", graphFromFile);
 		System.out.println(graphFromFile);
 		
 		System.out.println("Observe all degrees are <= 12.");
